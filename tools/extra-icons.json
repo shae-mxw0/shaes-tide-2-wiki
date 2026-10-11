@@ -1,0 +1,257 @@
+{
+ "fishofthieves:earthworms": {
+  "entry": "assets/fishofthieves/textures/item/earthworms.png",
+  "jar": "fish_of_thieves-mc26.3-v26.3.0.1-fabric.jar",
+  "out": "assets/textures/item/fishofthieves_earthworms.png"
+ },
+ "fishofthieves:grubs": {
+  "entry": "assets/fishofthieves/textures/item/grubs.png",
+  "jar": "fish_of_thieves-mc26.3-v26.3.0.1-fabric.jar",
+  "out": "assets/textures/item/fishofthieves_grubs.png"
+ },
+ "fishofthieves:leeches": {
+  "entry": "assets/fishofthieves/textures/item/leeches.png",
+  "jar": "fish_of_thieves-mc26.3-v26.3.0.1-fabric.jar",
+  "out": "assets/textures/item/fishofthieves_leeches.png"
+ },
+ "hybrid_aquatic:barbed_hook": {
+  "entry": "assets/hybrid_aquatic/textures/item/barbed_hook.png",
+  "jar": "hybrid_aquatic-fabric-1.21.1-1.7.4.jar",
+  "out": "assets/textures/item/hybrid_aquatic_barbed_hook.png"
+ },
+ "hybrid_aquatic:creepermagnet_hook": {
+  "entry": "assets/hybrid_aquatic/textures/item/creepermagnet_hook.png",
+  "jar": "hybrid_aquatic-fabric-1.21.1-1.7.4.jar",
+  "out": "assets/textures/item/hybrid_aquatic_creepermagnet_hook.png"
+ },
+ "hybrid_aquatic:glowing_hook": {
+  "entry": "assets/hybrid_aquatic/textures/item/glowing_hook.png",
+  "jar": "hybrid_aquatic-fabric-1.21.1-1.7.4.jar",
+  "out": "assets/textures/item/hybrid_aquatic_glowing_hook.png"
+ },
+ "hybrid_aquatic:magnetic_hook": {
+  "entry": "assets/hybrid_aquatic/textures/item/magnetic_hook.png",
+  "jar": "hybrid_aquatic-fabric-1.21.1-1.7.4.jar",
+  "out": "assets/textures/item/hybrid_aquatic_magnetic_hook.png"
+ },
+ "hybrid_aquatic:ominous_hook": {
+  "entry": "assets/hybrid_aquatic/textures/item/ominous_hook.png",
+  "jar": "hybrid_aquatic-fabric-1.21.1-1.7.4.jar",
+  "out": "assets/textures/item/hybrid_aquatic_ominous_hook.png"
+ },
+ "minecraft:amethyst_shard": {
+  "entry": "assets/minecraft/textures/item/amethyst_shard.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_amethyst_shard.png"
+ },
+ "minecraft:apple": {
+  "entry": "assets/minecraft/textures/item/apple.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_apple.png"
+ },
+ "minecraft:bone_meal": {
+  "entry": "assets/minecraft/textures/item/bone_meal.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_bone_meal.png"
+ },
+ "minecraft:book": {
+  "entry": "assets/minecraft/textures/item/book.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_book.png"
+ },
+ "minecraft:bow": {
+  "entry": "assets/minecraft/textures/item/bow.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_bow.png"
+ },
+ "minecraft:chicken": {
+  "entry": "assets/minecraft/textures/item/chicken.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_chicken.png"
+ },
+ "minecraft:chorus_fruit": {
+  "entry": "assets/minecraft/textures/item/chorus_fruit.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_chorus_fruit.png"
+ },
+ "minecraft:clock": {
+  "entry": "assets/minecraft/textures/item/clock_00.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_clock.png"
+ },
+ "minecraft:cod": {
+  "entry": "assets/minecraft/textures/item/cod.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_cod.png"
+ },
+ "minecraft:cooked_cod": {
+  "entry": "assets/minecraft/textures/item/cooked_cod.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_cooked_cod.png"
+ },
+ "minecraft:cooked_salmon": {
+  "entry": "assets/minecraft/textures/item/cooked_salmon.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_cooked_salmon.png"
+ },
+ "minecraft:diamond": {
+  "entry": "assets/minecraft/textures/item/diamond.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_diamond.png"
+ },
+ "minecraft:echo_shard": {
+  "entry": "assets/minecraft/textures/item/echo_shard.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_echo_shard.png"
+ },
+ "minecraft:enchanted_golden_apple": {
+  "entry": "assets/minecraft/textures/item/golden_apple.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_enchanted_golden_apple.png"
+ },
+ "minecraft:ender_eye": {
+  "entry": "assets/minecraft/textures/item/ender_eye.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_ender_eye.png"
+ },
+ "minecraft:ender_pearl": {
+  "entry": "assets/minecraft/textures/item/ender_pearl.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_ender_pearl.png"
+ },
+ "minecraft:feather": {
+  "entry": "assets/minecraft/textures/item/feather.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_feather.png"
+ },
+ "minecraft:fishing_rod": {
+  "entry": "assets/minecraft/textures/item/fishing_rod.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_fishing_rod.png"
+ },
+ "minecraft:glow_ink_sac": {
+  "entry": "assets/minecraft/textures/item/glow_ink_sac.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_glow_ink_sac.png"
+ },
+ "minecraft:glow_lichen": {
+  "entry": "assets/minecraft/textures/block/glow_lichen.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_glow_lichen.png"
+ },
+ "minecraft:gold_ingot": {
+  "entry": "assets/minecraft/textures/item/gold_ingot.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_gold_ingot.png"
+ },
+ "minecraft:golden_apple": {
+  "entry": "assets/minecraft/textures/item/golden_apple.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_golden_apple.png"
+ },
+ "minecraft:grass_block": {
+  "entry": "assets/minecraft/textures/block/grass_block_side.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_grass_block.png"
+ },
+ "minecraft:heart_of_the_sea": {
+  "entry": "assets/minecraft/textures/item/heart_of_the_sea.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_heart_of_the_sea.png"
+ },
+ "minecraft:ink_sac": {
+  "entry": "assets/minecraft/textures/item/ink_sac.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_ink_sac.png"
+ },
+ "minecraft:iron_ingot": {
+  "entry": "assets/minecraft/textures/item/iron_ingot.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_iron_ingot.png"
+ },
+ "minecraft:lapis_lazuli": {
+  "entry": "assets/minecraft/textures/item/lapis_lazuli.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_lapis_lazuli.png"
+ },
+ "minecraft:lava_bucket": {
+  "entry": "assets/minecraft/textures/item/lava_bucket.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_lava_bucket.png"
+ },
+ "minecraft:nautilus_shell": {
+  "entry": "assets/minecraft/textures/item/nautilus_shell.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_nautilus_shell.png"
+ },
+ "minecraft:netherite_boots": {
+  "entry": "assets/minecraft/textures/item/netherite_boots.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_netherite_boots.png"
+ },
+ "minecraft:netherite_ingot": {
+  "entry": "assets/minecraft/textures/item/netherite_ingot.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_netherite_ingot.png"
+ },
+ "minecraft:obsidian": {
+  "entry": "assets/minecraft/textures/block/obsidian.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_obsidian.png"
+ },
+ "minecraft:paper": {
+  "entry": "assets/minecraft/textures/item/paper.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_paper.png"
+ },
+ "minecraft:phantom_membrane": {
+  "entry": "assets/minecraft/textures/item/phantom_membrane.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_phantom_membrane.png"
+ },
+ "minecraft:pufferfish": {
+  "entry": "assets/minecraft/textures/item/pufferfish.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_pufferfish.png"
+ },
+ "minecraft:raw_gold": {
+  "entry": "assets/minecraft/textures/item/raw_gold.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_raw_gold.png"
+ },
+ "minecraft:raw_iron": {
+  "entry": "assets/minecraft/textures/item/raw_iron.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_raw_iron.png"
+ },
+ "minecraft:rotten_flesh": {
+  "entry": "assets/minecraft/textures/item/rotten_flesh.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_rotten_flesh.png"
+ },
+ "minecraft:salmon": {
+  "entry": "assets/minecraft/textures/item/salmon.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_salmon.png"
+ },
+ "minecraft:spyglass": {
+  "entry": "assets/minecraft/textures/item/spyglass.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_spyglass.png"
+ },
+ "minecraft:tropical_fish": {
+  "entry": "assets/minecraft/textures/item/tropical_fish.png",
+  "jar": "1.21.11.jar",
+  "out": "assets/textures/item/minecraft_tropical_fish.png"
+ },
+ "naturalist:butterfly": {
+  "entry": "assets/naturalist/textures/item/butterfly_monarch.png",
+  "jar": "naturalist-2.0.6-neoforge-26.2.jar",
+  "out": "assets/textures/item/naturalist_butterfly.png"
+ },
+ "naturalist:caterpillar": {
+  "entry": "assets/naturalist/textures/item/caterpillar.png",
+  "jar": "naturalist-2.0.6-neoforge-26.2.jar",
+  "out": "assets/textures/item/naturalist_caterpillar.png"
+ }
+}
