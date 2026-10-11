@@ -101,6 +101,11 @@
     return value >= 1 ? value.toFixed(2) + "%" : value.toFixed(3) + "%";
   }
 
+  /* mod-internal temperature (0..1) -> the °C the Climate Gauge shows */
+  function toC(mc) {
+    return Math.round((11 * Math.pow(mc - 0.23, 3) + 30 * mc + 15) * 10) / 10;
+  }
+
   function tagTitle(tag) {
     var map = {
       fishing_rods: "Fishing Rods", lava_fishing_rods: "Lava Fishing Rods", lines: "Lines",
@@ -670,7 +675,8 @@
       var t = f.temperature;
       var at = function (temp) { var inner = Math.abs((temp - t.preferred) / t.tolerance); return Math.max(0, 1 - inner * inner); };
       return "<tr><td><a href=\"#/fish/" + esc(f.id) + '">' + esc(f.name) + "</a></td>" +
-        '<td class="num mono">' + t.preferred + "</td><td class=\"num mono\">" + t.tolerance + "</td>" +
+        '<td class="num mono">' + toC(t.preferred).toFixed(1) + " °C</td>" +
+        '<td class="num mono">' + toC(t.preferred - t.tolerance).toFixed(1) + "–" + toC(t.preferred + t.tolerance).toFixed(1) + " °C</td>" +
         '<td class="num mono">' + (at(t.preferred) * 100).toFixed(0) + "%</td>" +
         '<td class="num mono">' + (at(t.preferred - t.tolerance) * 100).toFixed(0) + "%</td>" +
         '<td class="num mono">' + (at(0) * 100).toFixed(0) + "%</td></tr>";
@@ -722,10 +728,10 @@
       "The only modifier used by Tide's own fish is temperature:</p>" +
       '<div class="formula">' + esc(M.modifierFormula) + "</div>" +
       '<p class="small muted">' + esc(M.modifierSource) + "</p>" +
-      "<p>Hooks shift the reading: Fiery adds 0.25, Permafrost subtracts 0.25, clamped to -1..1. " +
+      "<p>Hooks shift the reading: Fiery warms it by about 8 °C, Permafrost cools it by about 8 °C. " +
       tempered.length + " fish are temperature sensitive.</p>" +
-      "<table><tr><th>Fish</th><th class=\"num\">Preferred T</th><th class=\"num\">Tolerance</th>" +
-      "<th class=\"num\">Weight at preferred</th><th class=\"num\">At 1 tolerance off</th><th class=\"num\">At neutral T=0</th></tr>" +
+      "<table><tr><th>Fish</th><th class=\"num\">Preferred</th><th class=\"num\">Catchable range</th>" +
+      "<th class=\"num\">Weight at preferred</th><th class=\"num\">At range edge</th><th class=\"num\">At neutral (14.9 °C)</th></tr>" +
       tempRows + "</table>" +
 
       "<h2>strength</h2>" +
@@ -884,13 +890,14 @@
       var t = f.temperature;
       var hot = t.preferred > 0, cold = t.preferred < 0;
       var alt = hot ? "Fiery Hook" : cold ? "Permafrost Hook" : "Fiery or Permafrost Hook";
-      var altEffect = hot ? "warms by 0.25" : cold ? "cools by 0.25" : "shifts by 0.25";
-      checks.push({ ok: false, label: "Water temperature near " + t.preferred + " (tolerance " + t.tolerance + ")",
-        detail: "Weight falls off as a curve and hits zero one tolerance away. Aim for a biome around " + t.preferred +
-          ". The " + alt + " " + altEffect + " if your biome is on the wrong side." });
+      var altEffect = hot ? "warms by ~8 °C" : cold ? "cools by ~8 °C" : "shifts by ~8 °C";
+      checks.push({ ok: false, label: "Water temperature near " + toC(t.preferred).toFixed(1) + " °C (" +
+        toC(t.preferred - t.tolerance).toFixed(1) + "–" + toC(t.preferred + t.tolerance).toFixed(1) + " °C)",
+        detail: "Weight falls off as a curve and hits zero outside that range. Aim for a biome around " +
+          toC(t.preferred).toFixed(1) + " °C. The " + alt + " " + altEffect + " if your biome is on the wrong side." });
       if (hook.flags && (hook.flags.timeShift || hook.flags.lava || hook.flags["void"])) {
         notes.push("One hook slot only: this fish needs both " + hook.name + " and a temperature shift. " +
-          "Fish in a biome near " + t.preferred + " instead, or pick which constraint to give up.");
+          "Fish in a biome near " + toC(t.preferred).toFixed(1) + " °C instead, or pick which constraint to give up.");
       }
     }
 
