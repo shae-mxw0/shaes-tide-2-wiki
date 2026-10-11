@@ -79,6 +79,63 @@ function check(label, html, needle) {
   else console.log("ok    " + label + "  " + html.length + " chars");
 }
 
+/* No page may print a computed garbage value. */
+try {
+  const every = ["#/", "#/fish", "#/loadout", "#/items", "#/blocks", "#/recipes", "#/crates",
+    "#/minigame", "#/stats", "#/config", "#/commands", "#/advancements", "#/compat"]
+    .concat(T.fish.map((f) => "#/fish/" + f.id), T.fish.map((f) => "#/loadout/" + f.id));
+  const junk = [];
+  for (const route of every) {
+    const html = renderAt(route);
+    const hit = html.match(/NaN|undefined|\[object Object\]/);
+    if (hit) junk.push(route + " -> " + hit[0]);
+  }
+  if (junk.length) { failures++; console.log("FAIL  NaN/undefined rendered on " + junk.slice(0, 6).join(", ")); }
+  else console.log("ok    no NaN/undefined on any of " + every.length + " routes");
+
+  // config defaults are values, not display names
+  const stats = renderAt("#/stats");
+  check("crate table uses real config values", stats, "crateWeight 4");
+  if (/Crate weight[\s\S]{0,200}NaN/.test(stats)) { failures++; console.log("FAIL  crate weight table still NaN"); }
+  else console.log("ok    crate weight table renders numbers, not display names");
+} catch (error) {
+  failures++;
+  console.log("FAIL  junk-value checks threw: " + error.message);
+}
+
+/* Biome names must be real biome names, not pluralised tag leftovers. */
+try {
+  const names = [...new Set(T.fish.flatMap((f) => f.biomes || []))];
+  const bad = names.filter((n) => /(ss|ys|hs)$/.test(n));
+  if (bad.length) { failures++; console.log("FAIL  malformed biome names: " + bad.join(", ")); }
+  else console.log("ok    " + names.length + " biome names, none malformed");
+
+  const coelBiomes = T.fish.find((f) => f.name === "Coelacanth");
+  if (!(coelBiomes.biomeTags || []).includes("#minecraft:is_deep_ocean")) {
+    failures++; console.log("FAIL  coelacanth lost its biome tag");
+  } else console.log("ok    unexpandable biome tags are recorded, not silently renamed");
+
+  const opt = T.fish.filter((f) => (f.modBiomes || []).length);
+  if (!opt.length) { failures++; console.log("FAIL  no fish flagged as needing another mod for its biomes"); }
+  else console.log("ok    " + opt.length + " fish flag biomes that need another mod installed");
+} catch (error) {
+  failures++;
+  console.log("FAIL  biome checks threw: " + error.message);
+}
+
+/* Every fish must resolve to a behaviour: absent means SINE, not "none". */
+try {
+  const missing = T.fish.filter((f) => !f.behavior).map((f) => f.id);
+  if (missing.length) { failures++; console.log("FAIL  fish without a behaviour: " + missing.join(", ")); }
+  else console.log("ok    all " + T.fish.length + " fish carry an explicit behaviour");
+
+  const stats = renderAt("#/stats");
+  check("behaviour table lists all six shapes", stats, "sine");
+} catch (error) {
+  failures++;
+  console.log("FAIL  behaviour checks threw: " + error.message);
+}
+
 /* node tools/check.js --dump "#/loadout/tide:coelacanth"  -> page as plain text */
 if (process.argv[2] === "--dump") {
   const html = renderAt(process.argv[3] || "#/");

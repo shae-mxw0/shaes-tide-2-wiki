@@ -62,25 +62,40 @@ window.TIDE = {
    "strength": 0.6,
    "weight": 9.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:arapaima_bucket",
    "entity": "tide:arapaima",
    "icon": "assets/textures/item/arapaima.png",
    "where": [
-    "Biomes: Jungles, Floodplain, Rainforest, Rocky Rainforest, Tropics, Swamps, Swamp, Mangroves, Marshes, Bayou, Bog, Marsh",
+    "Biomes: Jungle, Floodplain, Rainforest, Rocky Rainforest, Tropics, Swamp, Mangroves, Marshes, Bayou, Bog, Marsh",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Jungles",
+    "Jungle",
     "Floodplain",
     "Rainforest",
     "Rocky Rainforest",
     "Tropics",
-    "Swamps",
+    "Swamp",
+    "Mangroves",
+    "Marshes",
+    "Bayou",
+    "Bog",
+    "Marsh"
+   ],
+   "biomeTags": [
+    "#c:is_jungle",
+    "#c:is_swamp"
+   ],
+   "modBiomes": [
+    "Floodplain",
+    "Rainforest",
+    "Rocky Rainforest",
+    "Tropics",
     "Swamp",
     "Mangroves",
     "Marshes",
@@ -264,6 +279,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -431,7 +448,7 @@ window.TIDE = {
    "strength": 0.5,
    "weight": 10.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:blossom_bass_bucket",
    "entity": "tide:blossom_bass",
@@ -446,6 +463,10 @@ window.TIDE = {
    ],
    "biomes": [
     "Cherry Grove",
+    "Snowblossom Grove"
+   ],
+   "biomeTags": [],
+   "modBiomes": [
     "Snowblossom Grove"
    ],
    "dimensions": [
@@ -615,7 +636,7 @@ window.TIDE = {
    "strength": 0.35,
    "weight": 14.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:bluegill_bucket",
    "entity": "tide:bluegill",
@@ -628,6 +649,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -799,7 +822,7 @@ window.TIDE = {
    "strength": 0.35,
    "weight": 28.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:brook_trout_bucket",
    "entity": "tide:brook_trout",
@@ -812,6 +835,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -990,15 +1015,19 @@ window.TIDE = {
    "icon": "assets/textures/item/bull_shark.png",
    "where": [
     "Time of day: 00:00-02:00, 11:00-00:00",
-    "Biomes: Rivers",
+    "Biomes: River",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Rivers"
+    "River"
    ],
+   "biomeTags": [
+    "#minecraft:is_river"
+   ],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -1189,6 +1218,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -1369,7 +1400,7 @@ window.TIDE = {
    "strength": 0.4,
    "weight": 18.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:catfish_bucket",
    "entity": "tide:catfish",
@@ -1383,6 +1414,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -1559,25 +1592,38 @@ window.TIDE = {
    "strength": 0.55,
    "weight": 8.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:frostbite_flounder_bucket",
    "entity": "tide:frostbite_flounder",
    "icon": "assets/textures/item/frostbite_flounder.png",
    "where": [
-    "Biomes: Icys, Snowys, Frozen River, Frozen Ocean, Snowy Beach, Snowy Plains, Ice Spikes, Auroral Garden, Cold Desert, Tundra, Wintry Origin Valley, Snowy Coniferous Forest, Snowy Fir Clearing, Snowy Maple Woods",
+    "Biomes: Icy, Snowy, Frozen River, Frozen Ocean, Snowy Beach, Snowy Plains, Ice Spikes, Auroral Garden, Cold Desert, Tundra, Wintry Origin Valley, Snowy Coniferous Forest, Snowy Fir Clearing, Snowy Maple Woods",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Icys",
-    "Snowys",
+    "Icy",
+    "Snowy",
     "Frozen River",
     "Frozen Ocean",
     "Snowy Beach",
     "Snowy Plains",
     "Ice Spikes",
+    "Auroral Garden",
+    "Cold Desert",
+    "Tundra",
+    "Wintry Origin Valley",
+    "Snowy Coniferous Forest",
+    "Snowy Fir Clearing",
+    "Snowy Maple Woods"
+   ],
+   "biomeTags": [
+    "#c:is_icy",
+    "#c:is_snowy"
+   ],
+   "modBiomes": [
     "Auroral Garden",
     "Cold Desert",
     "Tundra",
@@ -1762,6 +1808,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -1929,7 +1977,7 @@ window.TIDE = {
    "strength": 0.4,
    "weight": 32.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:largemouth_bass_bucket",
    "entity": "tide:largemouth_bass",
@@ -1942,6 +1990,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -2113,22 +2163,30 @@ window.TIDE = {
    "strength": 0.45,
    "weight": 8.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:mirage_catfish_bucket",
    "entity": "tide:mirage_catfish",
    "icon": "assets/textures/item/mirage_catfish.png",
    "where": [
     "Time of day: 12:00-00:00",
-    "Biomes: Deserts, Badlandss, Dune Beach, Lush Desert",
+    "Biomes: Desert, Badlands, Dune Beach, Lush Desert",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Deserts",
-    "Badlandss",
+    "Desert",
+    "Badlands",
+    "Dune Beach",
+    "Lush Desert"
+   ],
+   "biomeTags": [
+    "#c:is_desert",
+    "#c:is_badlands"
+   ],
+   "modBiomes": [
     "Dune Beach",
     "Lush Desert"
    ],
@@ -2314,6 +2372,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -2490,7 +2550,7 @@ window.TIDE = {
    "strength": 0.45,
    "weight": 22.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:pike_bucket",
    "entity": "tide:pike",
@@ -2503,6 +2563,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -2674,7 +2736,7 @@ window.TIDE = {
    "strength": null,
    "weight": 36.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:rainbow_trout_bucket",
    "entity": "tide:rainbow_trout",
@@ -2687,6 +2749,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -2865,15 +2929,23 @@ window.TIDE = {
    "icon": "assets/textures/item/sand_tiger_shark.png",
    "where": [
     "Time of day: 00:00-03:00, 09:00-00:00",
-    "Biomes: Deserts, Badlandss, Dune Beach, Lush Desert",
+    "Biomes: Desert, Badlands, Dune Beach, Lush Desert",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Deserts",
-    "Badlandss",
+    "Desert",
+    "Badlands",
+    "Dune Beach",
+    "Lush Desert"
+   ],
+   "biomeTags": [
+    "#c:is_desert",
+    "#c:is_badlands"
+   ],
+   "modBiomes": [
     "Dune Beach",
     "Lush Desert"
    ],
@@ -3050,20 +3122,30 @@ window.TIDE = {
    "strength": 0.5,
    "weight": 7.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:slimy_salmon_bucket",
    "entity": "tide:slimy_salmon",
    "icon": "assets/textures/item/slimy_salmon.png",
    "where": [
-    "Biomes: Swamps, Swamp, Mangroves, Marshes, Bayou, Bog, Marsh",
+    "Biomes: Swamp, Mangroves, Marshes, Bayou, Bog, Marsh",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Swamps",
+    "Swamp",
+    "Mangroves",
+    "Marshes",
+    "Bayou",
+    "Bog",
+    "Marsh"
+   ],
+   "biomeTags": [
+    "#c:is_swamp"
+   ],
+   "modBiomes": [
     "Swamp",
     "Mangroves",
     "Marshes",
@@ -3235,7 +3317,7 @@ window.TIDE = {
    "strength": 0.4,
    "weight": 24.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:smallmouth_bass_bucket",
    "entity": "tide:smallmouth_bass",
@@ -3248,6 +3330,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -3419,7 +3503,7 @@ window.TIDE = {
    "strength": 0.6,
    "weight": 7.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:sturgeon_bucket",
    "entity": "tide:sturgeon",
@@ -3432,6 +3516,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -3602,7 +3688,7 @@ window.TIDE = {
    "strength": 0.45,
    "weight": 18.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:walleye_bucket",
    "entity": "tide:walleye",
@@ -3616,6 +3702,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -3808,6 +3896,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -3975,7 +4065,7 @@ window.TIDE = {
    "strength": 0.35,
    "weight": 36.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:yellow_perch_bucket",
    "entity": "tide:yellow_perch",
@@ -3988,6 +4078,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -4164,7 +4256,7 @@ window.TIDE = {
    "strength": 0.55,
    "weight": 42.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:ash_perch_bucket",
    "entity": "tide:ash_perch",
@@ -4173,6 +4265,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [],
    "fluids": [
     "lava"
@@ -4335,7 +4429,7 @@ window.TIDE = {
    "strength": 0.85,
    "weight": 5.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:blazing_swordfish_bucket",
    "entity": "tide:blazing_swordfish",
@@ -4345,6 +4439,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_nether"
    ],
@@ -4509,7 +4605,7 @@ window.TIDE = {
    "strength": 0.68,
    "weight": 24.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": true,
    "bucket": "tide:crimson_fangjaw_bucket",
    "entity": "tide:crimson_fangjaw",
@@ -4519,6 +4615,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_nether"
    ],
@@ -4692,6 +4790,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [],
    "fluids": [
     "lava"
@@ -4863,6 +4963,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [],
    "fluids": [
     "lava"
@@ -5034,6 +5136,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [],
    "fluids": [
     "lava"
@@ -5196,7 +5300,7 @@ window.TIDE = {
    "strength": 0.65,
    "weight": 30.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:obsidian_pike_bucket",
    "entity": "tide:obsidian_pike",
@@ -5205,6 +5309,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [],
    "fluids": [
     "lava"
@@ -5367,7 +5473,7 @@ window.TIDE = {
    "strength": 0.6,
    "weight": 22.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": true,
    "bucket": "tide:soulscale_bucket",
    "entity": "tide:soulscale",
@@ -5377,6 +5483,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_nether"
    ],
@@ -5541,7 +5649,7 @@ window.TIDE = {
    "strength": 0.7,
    "weight": 28.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:volcano_tuna_bucket",
    "entity": "tide:volcano_tuna",
@@ -5550,6 +5658,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [],
    "fluids": [
     "lava"
@@ -5722,6 +5832,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_nether"
    ],
@@ -5896,6 +6008,8 @@ window.TIDE = {
     "Fluid: Lava"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_nether"
    ],
@@ -6072,6 +6186,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -6239,7 +6355,7 @@ window.TIDE = {
    "strength": 0.45,
    "weight": 25.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:angelfish_bucket",
    "entity": "tide:angelfish",
@@ -6251,6 +6367,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -6429,6 +6547,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -6604,15 +6724,19 @@ window.TIDE = {
    "where": [
     "Time of day: 13:00-23:00",
     "Weather: Rain, Thunderstorm",
-    "Biomes: Deep Oceans",
+    "Biomes: Deep Ocean",
     "Saltwater",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Deep Oceans"
+    "Deep Ocean"
    ],
+   "biomeTags": [
+    "#minecraft:is_deep_ocean"
+   ],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -6788,7 +6912,7 @@ window.TIDE = {
    "strength": 0.45,
    "weight": 35.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:flounder_bucket",
    "entity": "tide:flounder",
@@ -6801,6 +6925,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -6985,6 +7111,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -7177,6 +7305,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -7344,7 +7474,7 @@ window.TIDE = {
    "strength": 0.7,
    "weight": 9.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:mahi_mahi_bucket",
    "entity": "tide:mahi_mahi",
@@ -7356,6 +7486,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -7523,7 +7655,7 @@ window.TIDE = {
    "strength": 0.76,
    "weight": 8.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:manta_ray_bucket",
    "entity": "tide:manta_ray",
@@ -7535,6 +7667,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -7702,7 +7836,7 @@ window.TIDE = {
    "strength": 0.82,
    "weight": 4.3,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:marstilus_bucket",
    "entity": "tide:marstilus",
@@ -7715,6 +7849,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -7895,6 +8031,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -8061,7 +8199,7 @@ window.TIDE = {
    "strength": 0.4,
    "weight": 50.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:ocean_perch_bucket",
    "entity": "tide:ocean_perch",
@@ -8073,6 +8211,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -8240,7 +8380,7 @@ window.TIDE = {
    "strength": 0.87,
    "weight": 5.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:pluto_snail_bucket",
    "entity": "tide:pluto_snail",
@@ -8253,6 +8393,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -8420,7 +8562,7 @@ window.TIDE = {
    "strength": 0.4,
    "weight": 50.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:red_snapper_bucket",
    "entity": "tide:red_snapper",
@@ -8432,6 +8574,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -8611,6 +8755,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -8791,6 +8937,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -8957,7 +9105,7 @@ window.TIDE = {
    "strength": 0.88,
    "weight": 1.5,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:shooting_starfish_bucket",
    "entity": "tide:shooting_starfish",
@@ -8965,15 +9113,19 @@ window.TIDE = {
    "where": [
     "Moon phase: Full Moon",
     "Time of day: 13:00-23:00",
-    "Biomes: Deep Oceans",
+    "Biomes: Deep Ocean",
     "Saltwater",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Deep Oceans"
+    "Deep Ocean"
    ],
+   "biomeTags": [
+    "#minecraft:is_deep_ocean"
+   ],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -9145,22 +9297,26 @@ window.TIDE = {
    "strength": 0.45,
    "weight": 42.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:snook_bucket",
    "entity": "tide:snook",
    "icon": "assets/textures/item/snook.png",
    "where": [
-    "Biomes: Beachs, Stony Shore",
+    "Biomes: Beach, Stony Shore",
     "Saltwater",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Beachs",
+    "Beach",
     "Stony Shore"
    ],
+   "biomeTags": [
+    "#minecraft:is_beach"
+   ],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -9328,19 +9484,25 @@ window.TIDE = {
    "strength": 0.5,
    "weight": 10.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": true,
    "bucket": "tide:spore_stalker_bucket",
    "entity": "tide:spore_stalker",
    "icon": "assets/textures/item/spore_stalker.png",
    "where": [
-    "Biomes: Mushrooms, Fungal Jungle",
+    "Biomes: Mushroom, Fungal Jungle",
     "Dimension: Overworld",
     "Fluid: Water",
     "Above Y 40"
    ],
    "biomes": [
-    "Mushrooms",
+    "Mushroom",
+    "Fungal Jungle"
+   ],
+   "biomeTags": [
+    "#c:is_mushroom"
+   ],
+   "modBiomes": [
     "Fungal Jungle"
    ],
    "dimensions": [
@@ -9507,7 +9669,7 @@ window.TIDE = {
    "strength": 0.83,
    "weight": 4.8,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:sun_emblem_bucket",
    "entity": "tide:sun_emblem",
@@ -9521,6 +9683,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -9708,6 +9872,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -9875,7 +10041,7 @@ window.TIDE = {
    "strength": 0.55,
    "weight": 50.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:tuna_bucket",
    "entity": "tide:tuna",
@@ -9887,6 +10053,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -10054,7 +10222,7 @@ window.TIDE = {
    "strength": 0.8,
    "weight": 4.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:uranias_pisces_bucket",
    "entity": "tide:uranias_pisces",
@@ -10067,6 +10235,8 @@ window.TIDE = {
     "Above Y 40"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -10244,6 +10414,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -10419,6 +10591,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -10597,6 +10771,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -10772,6 +10948,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -10939,7 +11117,7 @@ window.TIDE = {
    "strength": 0.65,
    "weight": 50.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:cave_eel_bucket",
    "entity": "tide:cave_eel",
@@ -10950,6 +11128,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -11128,6 +11308,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -11292,7 +11474,7 @@ window.TIDE = {
    "strength": 0.62,
    "weight": 17.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": true,
    "bucket": "tide:crystal_shrimp_bucket",
    "entity": "tide:crystal_shrimp",
@@ -11303,6 +11485,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -11478,6 +11662,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -11642,7 +11828,7 @@ window.TIDE = {
    "strength": 0.5,
    "weight": 50.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:deep_grouper_bucket",
    "entity": "tide:deep_grouper",
@@ -11653,6 +11839,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -11828,6 +12016,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -12009,6 +12199,8 @@ window.TIDE = {
    "biomes": [
     "Dripstone Caves"
    ],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -12185,6 +12377,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -12360,6 +12554,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -12524,7 +12720,7 @@ window.TIDE = {
    "strength": 0.5,
    "weight": 30.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:glowfish_bucket",
    "entity": "tide:glowfish",
@@ -12535,6 +12731,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -12713,6 +12911,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -12888,6 +13088,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -13063,6 +13265,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -13227,7 +13431,7 @@ window.TIDE = {
    "strength": 0.9,
    "weight": 7.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:midas_fish_bucket",
    "entity": "tide:midas_fish",
@@ -13239,6 +13443,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -13403,7 +13609,7 @@ window.TIDE = {
    "strength": 0.55,
    "weight": 45.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:shadow_snapper_bucket",
    "entity": "tide:shadow_snapper",
@@ -13414,6 +13620,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -13590,6 +13798,8 @@ window.TIDE = {
     "Fluid: Water"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -13756,7 +13966,7 @@ window.TIDE = {
    "strength": 0.9,
    "weight": 2.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:alpha_fish_bucket",
    "entity": "tide:alpha_fish",
@@ -13766,6 +13976,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -13930,7 +14142,7 @@ window.TIDE = {
    "strength": 0.6,
    "weight": 55.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:amber_rockfish_bucket",
    "entity": "tide:amber_rockfish",
@@ -13940,6 +14152,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -14114,6 +14328,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -14288,6 +14504,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -14462,6 +14680,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -14636,6 +14856,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -14800,7 +15022,7 @@ window.TIDE = {
    "strength": 0.76,
    "weight": 32.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:deep_blue_bucket",
    "entity": "tide:deep_blue",
@@ -14810,6 +15032,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -14974,7 +15198,7 @@ window.TIDE = {
    "strength": 0.92,
    "weight": 1.0,
    "quality": 0.5,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:dragon_fish_bucket",
    "entity": "tide:dragon_fish",
@@ -14984,6 +15208,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -15148,7 +15374,7 @@ window.TIDE = {
    "strength": 0.65,
    "weight": 14.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": true,
    "bucket": "tide:elytrout_bucket",
    "entity": "tide:elytrout",
@@ -15158,6 +15384,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -15332,6 +15560,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -15506,6 +15736,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -15670,7 +15902,7 @@ window.TIDE = {
    "strength": 0.68,
    "weight": 35.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:endergazer_bucket",
    "entity": "tide:endergazer",
@@ -15680,6 +15912,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -15854,6 +16088,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -16018,7 +16254,7 @@ window.TIDE = {
    "strength": 0.65,
    "weight": 45.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:incandescent_larva_bucket",
    "entity": "tide:incandescent_larva",
@@ -16028,6 +16264,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -16202,6 +16440,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -16366,7 +16606,7 @@ window.TIDE = {
    "strength": 0.78,
    "weight": 6.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:mantyvern_bucket",
    "entity": "tide:mantyvern",
@@ -16376,6 +16616,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -16540,7 +16782,7 @@ window.TIDE = {
    "strength": 0.8,
    "weight": 20.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:nephrosilu_bucket",
    "entity": "tide:nephrosilu",
@@ -16550,6 +16792,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -16714,7 +16958,7 @@ window.TIDE = {
    "strength": 0.6,
    "weight": 55.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:pale_clubfish_bucket",
    "entity": "tide:pale_clubfish",
@@ -16724,6 +16968,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -16898,6 +17144,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -17072,6 +17320,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -17246,6 +17496,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -17420,6 +17672,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -17594,6 +17848,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -17758,7 +18014,7 @@ window.TIDE = {
    "strength": 0.8,
    "weight": 18.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:vengeance_bucket",
    "entity": "tide:vengeance",
@@ -17768,6 +18024,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:overworld"
    ],
@@ -17932,7 +18190,7 @@ window.TIDE = {
    "strength": 0.7,
    "weight": 32.0,
    "quality": 0.0,
-   "behavior": null,
+   "behavior": "sine",
    "shiny": false,
    "bucket": "tide:violet_carp_bucket",
    "entity": "tide:violet_carp",
@@ -17942,6 +18200,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],
@@ -18116,6 +18376,8 @@ window.TIDE = {
     "Fluid: the fishable Void surface"
    ],
    "biomes": [],
+   "biomeTags": [],
+   "modBiomes": [],
    "dimensions": [
     "minecraft:the_end"
    ],

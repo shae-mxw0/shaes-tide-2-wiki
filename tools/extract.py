@@ -167,10 +167,14 @@ def biome_name(biome_id):
 
 
 def tag_name(tag_id):
-    """Human name for an ingredient/biome tag id like #c:ingots/iron."""
+    """Human name for an ingredient/biome tag id like #c:ingots/iron.
+
+    Strip the is_ prefix but never pluralize it: is_badlands is Badlands, not
+    Badlandss. A tag name is still a tag, so callers keep the raw id around.
+    """
     path = tag_id.lstrip("#").split(":")[-1]
     if path.startswith("is_"):
-        path = path[3:] + "s"
+        path = path[3:]
     return path.replace("/", " / ").replace("_", " ").title()
 
 
@@ -192,6 +196,7 @@ class Wiki:
         self.lang = json.loads(self.jar.read("assets/%s/lang/en_us.json" % MOD))
         self.meta = json.loads(self.jar.read("fabric.mod.json"))
         self.tags = {}
+        self.optional = set()
         self._load_tags()
         self.item_icons = {}
         self._load_models()
@@ -232,10 +237,21 @@ class Wiki:
             if name.startswith("data/tide/tags/") and name.endswith(".json"):
                 key = name[len("data/tide/tags/"):-len(".json")]
                 values = self.read_json(name).get("values", [])
-                self.tags[key] = [v["id"] if isinstance(v, dict) else v for v in values]
+                ids = [v["id"] if isinstance(v, dict) else v for v in values]
+                self.tags[key] = ids
+                # entries marked required:false only exist when that mod is installed
+                for value in values:
+                    if isinstance(value, dict) and not value.get("required", True):
+                        self.optional.add(value["id"])
 
     def expand_biomes(self, values, depth=0):
-        out = []
+        """Biome display names plus the raw tag ids that could not be expanded.
+
+        Returns (names, tags, mod_names). tags are tags outside the tide namespace,
+        which the jar cannot expand; mod_names are biomes that only exist if another
+        mod is installed.
+        """
+        out, tags, mods = [], [], []
         for value in values:
             if value.startswith("#") and depth < 5:
                 key = value[1:]
@@ -245,15 +261,25 @@ class Wiki:
                     if tag not in self.tags:
                         tag = name
                     if tag in self.tags:
-                        out += self.expand_biomes(self.tags[tag], depth + 1)
+                        sub = self.expand_biomes(self.tags[tag], depth + 1)
+                        out += sub[0]
+                        tags += sub[1]
+                        mods += sub[2]
                     else:
                         out.append(tag_name(value))
+                        tags.append(value)
                 else:
+                    # vanilla or common tag: not in the jar, so show the name and keep the id
                     out.append(tag_name(value))
+                    tags.append(value)
             else:
                 out.append(biome_name(value))
-        seen = set()
-        return [v for v in out if not (v in seen or seen.add(v))]
+                if value in self.optional:
+                    mods.append(biome_name(value))
+        def uniq(seq):
+            seen = set()
+            return [v for v in seq if not (v in seen or seen.add(v))]
+        return uniq(out), uniq(tags), uniq(mods)
 
     # -- item icons
 
@@ -310,8 +336,8 @@ def describe_conditions(wiki, conditions):
     """Turn a fish's condition list into prose plus the raw facts other pages need."""
     lines = []
     facts = {
-        "biomes": [], "dimensions": [], "fluids": [], "timeRanges": [], "moonPhases": [],
-        "weather": [], "seasons": [], "structures": [], "depthRange": None,
+        "biomes": [], "biomeTags": [], "modBiomes": [], "dimensions": [], "fluids": [], "timeRanges": [],
+        "moonPhases": [], "weather": [], "seasons": [], "structures": [], "depthRange": None,
         "above": None, "below": None, "luckGate": None, "temperature": None, "openWater": False,
     }
     seen = {key: set() for key in ("dimensions", "fluids")}
@@ -323,9 +349,13 @@ def describe_conditions(wiki, conditions):
     def walk(node):
         kind = node.get("type")
         if kind == "tide:found_in":
-            names = wiki.expand_biomes(node.get("biomes", []))
+            names, tags, mods = wiki.expand_biomes(node.get("biomes", []))
             for name in names:
                 add("biomes", name)
+            for tag in tags:
+                add("biomeTags", tag)
+            for name in mods:
+                add("modBiomes", name)
             if names:
                 lines.append("Biomes: " + ", ".join(names))
         elif kind == "tide:freshwater":
@@ -464,7 +494,7 @@ def build_fish(wiki):
             "strength": data.get("strength"),
             "weight": data.get("selection_weight"),
             "quality": data.get("selection_quality", 0.0),
-            "behavior": data.get("behavior"),
+            "behavior": data.get("behavior") or "sine",
             "shiny": "shiny_data" in data,
             "bucket": data.get("bucket"),
             "entity": "tide:" + key,
@@ -472,6 +502,8 @@ def build_fish(wiki):
                                                     if "assets/%s/textures/entity/fish/%s.png" % (MOD, key) in wiki.names else None),
             "where": where,
             "biomes": facts["biomes"],
+            "biomeTags": facts["biomeTags"],
+            "modBiomes": facts["modBiomes"],
             "dimensions": facts["dimensions"],
             "fluids": facts["fluids"],
             "temperature": temperature,

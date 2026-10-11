@@ -393,6 +393,7 @@
       "<h2>Where to find it</h2>" +
       (f.where.length ? "<ul>" + f.where.map(function (w) { return "<li>" + esc(w) + "</li>"; }).join("") + "</ul>"
         : '<p class="muted">No special conditions - it shows up wherever Tide spawns ordinary ' + esc(f.groupName.toLowerCase()) + " fish.</p>") +
+      biomeFactsNote(f) +
       (biomeTempWarning(f) ? '<div class="note"><strong>Temperature trap.</strong> ' + esc(biomeTempWarning(f)) + "</div>" : "") +
 
       "<h2>Size</h2>" + bar +
@@ -406,6 +407,21 @@
 
       (related.length ? "<h2>Related recipes</h2>" + related.map(recipeCard).join("") : "") +
       footer();
+  }
+
+  function biomeFactsNote(f) {
+    var parts = [];
+    if ((f.biomeTags || []).length) {
+      parts.push("<strong>Tagged biomes.</strong> " + f.biomeTags.map(function (t) {
+        return esc(t.replace(/^#/, ""));
+      }).join(", ") + (f.biomeTags.length > 1 ? " are" : " is") +
+        " a biome tag, not a single biome: the fish spawns in any biome the tag covers.");
+    }
+    if ((f.modBiomes || []).length) {
+      parts.push("<strong>Needs another mod.</strong> " + esc(f.modBiomes.join(", ")) +
+        " only exist if the mod that adds them is installed, so this fish gets harder to find without it.");
+    }
+    return parts.length ? '<div class="note">' + parts.join(" ") + "</div>" : "";
   }
 
   function sizeClass(f) {
@@ -581,8 +597,10 @@
     var crateOpts = configOptions("server", "general");
     return "<h1>Crates &amp; loot</h1>" +
       '<p class="sub">Fishing can pull a crate instead of a fish. Crates also exist as placeable blocks.</p>' +
-      '<div class="note">Crate chance is controlled by <strong>' + esc(titleize(crateOpts.crateWeight)) + "</strong> and scales with luck via <strong>" +
-      esc(titleize(crateOpts.crateQuality)) + "</strong>. " + esc(crateOpts.crateWeight_tip || "") + "</div>" +
+      '<div class="note">Crate chance is controlled by <strong>' + esc(titleize(crateOpts.crateWeight)) + "</strong> (default " +
+      esc(String(crateOpts.crateWeight_value)) + ") and scales with luck via <strong>" +
+      esc(titleize(crateOpts.crateQuality)) + "</strong> (default " + esc(String(crateOpts.crateQuality_value)) +
+      "). " + esc(crateOpts.crateWeight_tip || "") + "</div>" +
       T.crates.map(table).join("") +
       "<h2>Fishing loot tables</h2>" +
       '<p class="muted small">These roll for ordinary catches instead of a fish entry.</p>' +
@@ -593,6 +611,7 @@
     var out = {};
     ((T.config[side] || []).filter(function (c) { return c.key === cat; })[0] || { options: [] }).options.forEach(function (o) {
       out[o.key] = o.name;
+      out[o.key + "_value"] = o.default;
       out[o.key + "_tip"] = o.tooltip;
     });
     return out;
@@ -851,11 +870,11 @@
       "<h2>Crates</h2>" +
       '<div class="formula">' + esc(M.crateFormula) + "</div>" +
       '<p class="small muted">' + esc(M.crateSource) + "</p>" +
-      "<p>Your instance runs crateWeight " + esc(String(crateOpts.crateWeight || "-")) + " and crateQuality " +
-      esc(String(crateOpts.crateQuality || "-")) + ". " + esc(M.magneticBait) + "</p>" +
+      "<p>Your instance runs crateWeight " + esc(String(crateOpts.crateWeight_value)) + " and crateQuality " +
+      esc(String(crateOpts.crateQuality_value)) + ". " + esc(M.magneticBait) + "</p>" +
       "<table><tr><th>Luck</th><th class=\"num\">Crate weight</th><th class=\"num\">With Magnetic Bait</th></tr>" +
       [0, 2, 5, 10].map(function (luck) {
-        var base = Number(crateOpts.crateWeight || 4) + Number(crateOpts.crateQuality || 1) * luck;
+        var base = Number(crateOpts.crateWeight_value) + Number(crateOpts.crateQuality_value) * luck;
         return '<tr><td class="num">' + luck + '</td><td class="num mono">' + base.toFixed(1) +
           '</td><td class="num mono">' + (base * 5).toFixed(1) + "</td></tr>";
       }).join("") + "</table>" +
@@ -863,8 +882,9 @@
       "<h2>Bite timer</h2>" +
       '<div class="formula">' + esc(M.biteFormula) + "</div>" +
       '<p class="small muted">' + esc(M.biteSource) + "</p>" +
-      "<p>Lava waits 1.6x as long as water, the void 1.8x. Luck of the Seas speeds the wait up through the lure term.</p>" +
-      "<table><tr><th class=\"num\">Luck of the Seas</th><th class=\"num\">Ticks saved</th>" +
+      "<p>Lava waits 1.6x as long as water, the void 1.8x. Speed shortens the wait: the Lure enchantment and every bait " +
+      "on the rod add to the same term. Luck of the Seas does not shorten it, it raises the weight instead.</p>" +
+      "<table><tr><th class=\"num\">Lure level / bait speed</th><th class=\"num\">Ticks saved</th>" +
       "<th class=\"num\">Water (avg)</th><th class=\"num\">Lava</th><th class=\"num\">Void</th></tr>" + lureRows + "</table>" +
 
       "<h2>Field reference</h2>" +
@@ -928,10 +948,17 @@
         (rod.netherOverride ? "Blazing counts any lava as Nether lava, so this fish is catchable outside the Nether too."
           : "The Blazing rod does the same and works in any lava.");
     } else {
-      rod = T.rods.filter(function (r) { return r.luckBoost; })
-        .sort(function (a, b) { return b.baitSlots - a.baitSlots; })[0];
-      rodReason = "Any rod works in water. " + rod.name + " adds +1 luck and carries " + rod.baitSlots +
-        " bait slots, so it takes the most bait at once.";
+      var waterRods = T.rods.filter(function (r) { return !r.lavaFishing; });
+      rod = waterRods.slice().sort(function (a, b) {
+        return ((b.luckBoost ? 1 : 0) - (a.luckBoost ? 1 : 0)) || (b.baitSlots - a.baitSlots);
+      })[0];
+      var roomiest = waterRods.slice().sort(function (a, b) { return b.baitSlots - a.baitSlots; })[0];
+      rodReason = "Any rod works in water. " + rod.name + (rod.luckBoost ? " adds +1 luck" : "") +
+        (rod.baitSlots > 1 ? " and carries " + rod.baitSlots + " bait slots, so it takes the most bait at once." : ".");
+      if (roomiest.id !== rod.id) {
+        rodReason += " For raw capacity the " + roomiest.name + " holds " + roomiest.baitSlots +
+          " bait stacks" + (roomiest.bonus ? " (" + roomiest.bonus.toLowerCase() + ")" : "") + ".";
+      }
     }
 
     var hook = { id: "tide:fishing_hook", name: "Fishing Hook", effect: "Default hook.", flags: {} };
@@ -1106,6 +1133,7 @@
       "<h2>Requirements</h2><table>" + checklist + "</table>" +
       (p.notes.length ? p.notes.map(function (n) { return '<div class="note">' + esc(n) + "</div>"; }).join("") : "") +
       (trap ? '<div class="note"><strong>Temperature trap.</strong> ' + esc(trap) + "</div>" : "") +
+      biomeFactsNote(f) +
       (where.length ? "<h3>Where to stand</h3><ul>" + where.map(function (w) {
         return "<li>" + esc(w) + "</li>";
       }).join("") + "</ul>" : "") +
