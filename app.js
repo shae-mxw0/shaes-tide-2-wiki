@@ -106,6 +106,74 @@
     return Math.round((11 * Math.pow(mc - 0.23, 3) + 30 * mc + 15) * 10) / 10;
   }
 
+  /* the hook clamps the sampled reading to -1..1, so the reachable window does too */
+  function tempEdge(mc) {
+    return Math.max(-1, Math.min(1, mc));
+  }
+
+  /* Vanilla biome climate temperatures. The Climate sampler reads the same value the biome
+     defines, and every ocean biome shares 0.5, which is why a deep-ocean gate can pin a
+     temperature-sensitive fish to the very edge of its own range. Only verified values
+     are listed - an unknown biome produces no warning rather than a wrong one. */
+  var BIOME_TEMP = [
+    [/deep (cold |lukewarm )?ocean/, 0.5, ""],
+    [/frozen ocean/, -0.5, ""],
+    [/cold ocean/, 0.5, ""],
+    [/warm ocean/, 0.5, ""],
+    [/ocean/, 0.5, ""],
+    [/river/, 0.5, ""],
+    [/dripstone caves/, 0.5, ""],
+    [/deep dark/, 0.8, ""],
+    [/stony shore/, 0.2, ""],
+    [/jungle/, 0.95, ""],
+    [/savanna|badlands/, 2.0, ""],
+    [/desert/, 2.0, ""],
+    [/swamp|bayou|bog|marsh/, 0.8, ""],
+    [/snow|frozen|ice spikes|igloo/, -0.5, ""],
+    [/taiga|old growth|tundra/, -0.5, ""],
+    [/cherry grove|meadow|windswept hills/, 0.5, ""],
+    [/plains|forest|groves?|sunflower/, 0.8, ""]
+  ];
+
+  function biomeTemp(name) {
+    var lower = name.toLowerCase();
+    for (var i = 0; i < BIOME_TEMP.length; i++) {
+      if (BIOME_TEMP[i][0].test(lower)) return { temp: BIOME_TEMP[i][1], note: BIOME_TEMP[i][2] };
+    }
+    return null;
+  }
+
+  function tempFactor(temp, t) {
+    return Math.max(0, 1 - Math.pow((temp - t.preferred) / t.tolerance, 2));
+  }
+
+  /* A biome gate whose own temperature is outside the fish's window: the fish can be
+     caught there only after a hook moves the reading. */
+  function biomeTempWarning(f) {
+    if (!f.temperature) return null;
+    var t = f.temperature;
+    var known = [];
+    (f.biomes || []).forEach(function (name) {
+      var b = biomeTemp(name);
+      if (b) known.push({ name: name, temp: b.temp, note: b.note, factor: tempFactor(b.temp, t) });
+    });
+    if (!known.length) return null;
+    var dead = known.filter(function (b) { return b.factor === 0; });
+    var weak = known.filter(function (b) { return b.factor > 0 && b.factor < 0.5; });
+    if (!dead.length && !weak.length) return null;
+
+    var worst = (dead.length ? dead : weak);
+    var names = worst.map(function (b) { return b.name; }).join(", ");
+    var first = worst[0];
+    var shift = first.temp > t.preferred ? "Permafrost" : "Fiery";
+    return names + " is the only biome that spawns this fish, and it reads " +
+      toC(tempEdge(first.temp)).toFixed(1) + " °C against a preferred " +
+      toC(t.preferred).toFixed(1) + " °C, which leaves the weight at " +
+      (dead.length ? "zero" : (first.factor * 100).toFixed(0) + "%") + ". " +
+      (dead.length ? "It cannot be caught in its own biome without a " + shift + " Hook to bring the reading " +
+        "back onto the range." : "Expect a weak bite until you fit a " + shift + " Hook.");
+  }
+
   function tagTitle(tag) {
     var map = {
       fishing_rods: "Fishing Rods", lava_fishing_rods: "Lava Fishing Rods", lines: "Lines",
@@ -325,6 +393,7 @@
       "<h2>Where to find it</h2>" +
       (f.where.length ? "<ul>" + f.where.map(function (w) { return "<li>" + esc(w) + "</li>"; }).join("") + "</ul>"
         : '<p class="muted">No special conditions - it shows up wherever Tide spawns ordinary ' + esc(f.groupName.toLowerCase()) + " fish.</p>") +
+      (biomeTempWarning(f) ? '<div class="note"><strong>Temperature trap.</strong> ' + esc(biomeTempWarning(f)) + "</div>" : "") +
 
       "<h2>Size</h2>" + bar +
       '<p class="muted small">Records are tracked per fish. Bigger fish cook into bigger meals.</p>' +
@@ -676,9 +745,10 @@
       var at = function (temp) { var inner = Math.abs((temp - t.preferred) / t.tolerance); return Math.max(0, 1 - inner * inner); };
       return "<tr><td><a href=\"#/fish/" + esc(f.id) + '">' + esc(f.name) + "</a></td>" +
         '<td class="num mono">' + toC(t.preferred).toFixed(1) + " °C</td>" +
-        '<td class="num mono">' + toC(t.preferred - t.tolerance).toFixed(1) + "–" + toC(t.preferred + t.tolerance).toFixed(1) + " °C</td>" +
+        '<td class="num mono">' + toC(tempEdge(t.preferred - t.tolerance)).toFixed(1) + "–" +
+        toC(tempEdge(t.preferred + t.tolerance)).toFixed(1) + " °C</td>" +
         '<td class="num mono">' + (at(t.preferred) * 100).toFixed(0) + "%</td>" +
-        '<td class="num mono">' + (at(t.preferred - t.tolerance) * 100).toFixed(0) + "%</td>" +
+        '<td class="num mono">' + (at(tempEdge(t.preferred + t.tolerance)) * 100).toFixed(0) + "%</td>" +
         '<td class="num mono">' + (at(0) * 100).toFixed(0) + "%</td></tr>";
     }).join("");
 
@@ -728,10 +798,12 @@
       "The only modifier used by Tide's own fish is temperature:</p>" +
       '<div class="formula">' + esc(M.modifierFormula) + "</div>" +
       '<p class="small muted">' + esc(M.modifierSource) + "</p>" +
-      "<p>Hooks shift the reading: Fiery warms it by about 8 °C, Permafrost cools it by about 8 °C. " +
-      tempered.length + " fish are temperature sensitive.</p>" +
+      "<p>Hooks shift the reading by a fixed amount of the internal 0..1 scale: Fiery adds 0.25, Permafrost takes " +
+      "0.25 off. Because the Climate Gauge conversion is a cubic curve, that is worth anywhere from about 7 °C " +
+      "near the middle of the scale to nearly 18 °C at the cold end, so the size of the nudge depends on where " +
+      "you are standing. " + tempered.length + " fish are temperature sensitive.</p>" +
       "<table><tr><th>Fish</th><th class=\"num\">Preferred</th><th class=\"num\">Catchable range</th>" +
-      "<th class=\"num\">Weight at preferred</th><th class=\"num\">At range edge</th><th class=\"num\">At neutral (14.9 °C)</th></tr>" +
+      "<th class=\"num\">Weight at preferred</th><th class=\"num\">At range edge</th><th class=\"num\">At neutral (" + toC(0).toFixed(1) + " °C)</th></tr>" +
       tempRows + "</table>" +
 
       "<h2>strength</h2>" +
@@ -874,30 +946,48 @@
       hookReason = "The " + rod.name + " already fishes lava, so the default hook is enough. " +
         "Lavaproof Hook would let you use any other rod instead.";
     }
+    var shifted = f.timeRanges.map(function (r) {
+      return { min: (r.min + 12000) % 24000, max: (r.max + 12000) % 24000 };
+    });
     if (f.timeRanges.length) {
-      var shifted = f.timeRanges.map(function (r) {
-        return { min: (r.min + 12000) % 24000, max: (r.max + 12000) % 24000 };
-      });
-      if (hook.id === "tide:fishing_hook") {
-        hook = T.hooks.filter(function (h) { return h.flags && h.flags.timeShift; })[0];
+      var twilight = T.hooks.filter(function (h) { return h.flags && h.flags.timeShift; })[0];
+      if (hook.id === "tide:fishing_hook" && !f.temperature) {
+        hook = twilight;
         hookReason = "This fish only spawns " + f.timeRanges.map(timeWindow).join(" or ") +
-          ". The Twilight Hook shifts the test by half a day, moving it to " + shifted.map(timeWindow).join(" or ") + ".";
+          ". The Twilight Hook shifts the test by half a day, moving it to " + shifted.map(timeWindow).join(" or ") +
+          ". It is optional: fishing inside the window works too.";
       }
       checks.push({ ok: true, label: "Time window " + f.timeRanges.map(timeWindow).join(", "),
-        detail: (hook.flags && hook.flags.timeShift ? "Twilight Hook moves this to " + shifted.map(timeWindow).join(", ") + "." : "Fish inside this window.") });
+        detail: (hook.flags && hook.flags.timeShift ? "Twilight Hook moves this to " + shifted.map(timeWindow).join(", ") + "." :
+          "Fish inside this window. The Twilight Hook would move it to " + shifted.map(timeWindow).join(", ") + ".") });
     }
     if (f.temperature) {
       var t = f.temperature;
-      var hot = t.preferred > 0, cold = t.preferred < 0;
-      var alt = hot ? "Fiery Hook" : cold ? "Permafrost Hook" : "Fiery or Permafrost Hook";
-      var altEffect = hot ? "warms by ~8 °C" : cold ? "cools by ~8 °C" : "shifts by ~8 °C";
-      checks.push({ ok: false, label: "Water temperature near " + toC(t.preferred).toFixed(1) + " °C (" +
-        toC(t.preferred - t.tolerance).toFixed(1) + "–" + toC(t.preferred + t.tolerance).toFixed(1) + " °C)",
-        detail: "Weight falls off as a curve and hits zero outside that range. Aim for a biome around " +
-          toC(t.preferred).toFixed(1) + " °C. The " + alt + " " + altEffect + " if your biome is on the wrong side." });
+      var wanted = toC(t.preferred).toFixed(1);
+      var up = toC(tempEdge(t.preferred + 0.25)) - toC(tempEdge(t.preferred));
+      var down = toC(tempEdge(t.preferred - 0.25)) - toC(tempEdge(t.preferred));
+      checks.push({ ok: false, label: "Water temperature near " + wanted + " °C (" +
+        toC(tempEdge(t.preferred - t.tolerance)).toFixed(1) + "–" +
+        toC(tempEdge(t.preferred + t.tolerance)).toFixed(1) + " °C)",
+        detail: "Weight falls off as a curve and hits zero outside that range. The reading comes from the biome, " +
+          "not the depth, so check the Climate Gauge before you cast. The Fiery Hook adds 0.25 to the reading " +
+          "and the Permafrost Hook takes 0.25 off, which is " + up.toFixed(1) + " °C and " +
+          Math.abs(down).toFixed(1) + " °C around " + wanted + " °C. Take whichever one moves the gauge toward it." +
+          (down === 0 ? " Permafrost cannot go colder here, the reading is already at the bottom of the scale." : "") });
+      if (hook.id === "tide:fishing_hook") {
+        hookReason = "The default hook. Use one only if the Climate Gauge is off its preferred " + wanted +
+          " °C, and then take whichever of the Fiery or Permafrost Hook moves the gauge toward it - the " +
+          "direction depends on your biome, not on the fish.";
+      }
       if (hook.flags && (hook.flags.timeShift || hook.flags.lava || hook.flags["void"])) {
-        notes.push("One hook slot only: this fish needs both " + hook.name + " and a temperature shift. " +
-          "Fish in a biome near " + toC(t.preferred).toFixed(1) + " °C instead, or pick which constraint to give up.");
+        notes.push("One hook slot only: the " + hook.name + " does nothing for temperature. Save the slot for the " +
+          "Fiery or Permafrost Hook and " +
+          (f.timeRanges.length ? "fish inside " + f.timeRanges.map(timeWindow).join(" or ") + " instead." :
+            "give up on the medium this hook enables."));
+      } else if (f.timeRanges.length) {
+        notes.push("One hook slot only: the Twilight Hook would move the window to " +
+          shifted.map(timeWindow).join(" or ") + " but does nothing for temperature. Fish inside " +
+          f.timeRanges.map(timeWindow).join(" or ") + " and keep the slot for a temperature hook.");
       }
     }
 
@@ -929,9 +1019,13 @@
       baitReason = "Plain Bait adds +2 fishing speed, which shortens the wait between bites.";
     }
 
+    var hookAlts = f.temperature ? T.hooks.filter(function (h) {
+      return h.flags && h.flags.temperature;
+    }) : [];
+
     return { rod: rod, rodReason: rodReason, hook: hook, hookReason: hookReason, line: line,
       lineReason: lineReason, bait: bait, baitReason: baitReason, checks: checks, notes: notes,
-      gate: gate, strength: strength, speed: speed, area: area };
+      hookAlts: hookAlts, gate: gate, strength: strength, speed: speed, area: area };
   }
 
   function buildLuck(build) {
@@ -955,6 +1049,7 @@
     var f = T.fish.filter(function (x) { return x.id === id; })[0];
     if (!f) return "<h1>Fish not found</h1><p><a href=\"#/loadout\">Back to the planner</a></p>";
     var p = planFor(f);
+    var trap = biomeTempWarning(f);
 
     var maxLuckRod = T.rods.filter(function (r) { return r.luckBoost; })
       .sort(function (a, b) { return b.baitSlots - a.baitSlots; })[0];
@@ -1010,6 +1105,7 @@
 
       "<h2>Requirements</h2><table>" + checklist + "</table>" +
       (p.notes.length ? p.notes.map(function (n) { return '<div class="note">' + esc(n) + "</div>"; }).join("") : "") +
+      (trap ? '<div class="note"><strong>Temperature trap.</strong> ' + esc(trap) + "</div>" : "") +
       (where.length ? "<h3>Where to stand</h3><ul>" + where.map(function (w) {
         return "<li>" + esc(w) + "</li>";
       }).join("") + "</ul>" : "") +
@@ -1019,7 +1115,7 @@
 
       "<h2>Recommended loadout</h2>" +
       '<div class="cards">' +
-      [p.rod, p.hook, p.line, p.bait].filter(Boolean).map(function (part) {
+      [p.rod, p.hook, p.line, p.bait].concat(p.hookAlts).filter(Boolean).map(function (part) {
         return '<div class="card">' + icon(part.id) + '<div class="body"><div class="name">' + esc(part.name) + "</div>" +
           (part.baitSlots ? '<div class="meta">' + part.baitSlots + " bait slot" + (part.baitSlots > 1 ? "s" : "") +
             " &middot; " + part.durability + " durability</div>" : "") +

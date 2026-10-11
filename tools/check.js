@@ -166,6 +166,35 @@ try {
   }
   if (missing.length) { failures++; console.log("FAIL  loadout icons missing for " + missing.join(", ")); }
   else console.log("ok    every loadout shows an icon for all four gear slots");
+
+  // A temperature fish gated by a time window cannot use the one hook slot twice.
+  const contested = T.fish.filter((f) => f.temperature && f.timeRanges.length);
+  const badHook = [];
+  for (const fish of contested) {
+    const page = renderAt("#/loadout/" + fish.id);
+    const plan = page.slice(page.indexOf("Recommended loadout"), page.indexOf("Alternative builds"));
+    if (plan.indexOf("twilight_hook.png") >= 0) badHook.push(fish.id);
+    else if (page.indexOf("does nothing for temperature") < 0) badHook.push(fish.id + " (no warning)");
+  }
+  if (badHook.length) { failures++; console.log("FAIL  hook-slot conflict not resolved for " + badHook.join(", ")); }
+  else console.log("ok    " + contested.length + " temperature+time fish keep the hook slot free and warn about it");
+
+  // Every temperature fish must offer both direction hooks, never guess one.
+  const guessed = [];
+  for (const fish of T.fish.filter((f) => f.temperature)) {
+    const page = renderAt("#/loadout/" + fish.id);
+    if (page.indexOf("fiery_hook.png") < 0 || page.indexOf("permafrost_hook.png") < 0) guessed.push(fish.id);
+  }
+  if (guessed.length) { failures++; console.log("FAIL  temperature fish missing a hook icon for " + guessed.join(", ")); }
+  else console.log("ok    every temperature loadout shows both Fiery and Permafrost Hook icons");
+
+  // A biome gate can pin a fish's own temperature to the edge of its range (all ocean
+  // biomes read 0.5). The Coelacanth is the known case; the note must appear and must
+  // point at the hook that moves the reading back toward preferred.
+  const coel = renderAt("#/fish/tide:coelacanth");
+  check("coelacanth warns about the biome temperature trap", coel, "Temperature trap.");
+  if (coel.indexOf("Permafrost") < 0) { failures++; console.log("FAIL  coelacanth trap points the wrong way (deep ocean 30.2 C > preferred 24.0 C, needs Permafrost)"); }
+  else console.log("ok    coelacanth trap points at Permafrost (cools 30.2 C toward 24.0 C)");
 } catch (error) {
   failures++;
   console.log("FAIL  loadout threw: " + error.message);
