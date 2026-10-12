@@ -179,8 +179,18 @@ def tag_name(tag_id):
 
 
 def clock(ticks):
-    total_min = int(round(ticks / 24000.0 * 1440)) % 1440
-    return "{:02d}:{:02d}".format(total_min // 60, total_min % 60)
+    """Tide's own TideUtils.ticksToRealTime, not a raw tick-to-clock conversion.
+
+    Minecraft's tick 0 is dawn (06:00), not midnight, so the raw scale is six hours
+    low across the whole day. A plain ticks/24000*1440 conversion renders every
+    window six hours early.
+    """
+    hours = ticks / 1000.0 + 6
+    if hours >= 24:
+        hours -= 24
+    hour = int(hours)
+    minute = int((hours - hour) * 60)
+    return "{:02d}:{:02d}".format(hour, minute)
 
 
 def plural(word):

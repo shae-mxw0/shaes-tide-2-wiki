@@ -1014,7 +1014,7 @@ window.TIDE = {
    "entity": "tide:bull_shark",
    "icon": "assets/textures/item/bull_shark.png",
    "where": [
-    "Time of day: 00:00-02:00, 11:00-00:00",
+    "Time of day: 06:00-08:00, 17:00-06:00",
     "Biomes: River",
     "Freshwater",
     "Dimension: Overworld",
@@ -1211,7 +1211,7 @@ window.TIDE = {
    "icon": "assets/textures/item/carp.png",
    "where": [
     "Season: Spring, Summer, Fall",
-    "Time of day: 00:00-12:00, 18:00-00:00",
+    "Time of day: 06:00-18:00, 00:00-06:00",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
@@ -1407,7 +1407,7 @@ window.TIDE = {
    "icon": "assets/textures/item/catfish.png",
    "where": [
     "Season: Spring, Summer, Fall",
-    "Time of day: 12:00-00:00",
+    "Time of day: 18:00-06:00",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
@@ -2169,7 +2169,7 @@ window.TIDE = {
    "entity": "tide:mirage_catfish",
    "icon": "assets/textures/item/mirage_catfish.png",
    "where": [
-    "Time of day: 12:00-00:00",
+    "Time of day: 18:00-06:00",
     "Biomes: Desert, Badlands, Dune Beach, Lush Desert",
     "Freshwater",
     "Dimension: Overworld",
@@ -2365,7 +2365,7 @@ window.TIDE = {
    "entity": "tide:mooneye",
    "icon": "assets/textures/item/mooneye.png",
    "where": [
-    "Time of day: 00:00-01:00, 12:00-00:00",
+    "Time of day: 06:00-07:00, 18:00-06:00",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
@@ -2928,7 +2928,7 @@ window.TIDE = {
    "entity": "tide:sand_tiger_shark",
    "icon": "assets/textures/item/sand_tiger_shark.png",
    "where": [
-    "Time of day: 00:00-03:00, 09:00-00:00",
+    "Time of day: 06:00-09:00, 15:00-06:00",
     "Biomes: Desert, Badlands, Dune Beach, Lush Desert",
     "Freshwater",
     "Dimension: Overworld",
@@ -3695,7 +3695,7 @@ window.TIDE = {
    "icon": "assets/textures/item/walleye.png",
    "where": [
     "Season: Spring, Fall, Winter",
-    "Time of day: 00:00-04:00, 09:00-00:00",
+    "Time of day: 06:00-10:00, 15:00-06:00",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
@@ -4071,7 +4071,7 @@ window.TIDE = {
    "entity": "tide:yellow_perch",
    "icon": "assets/textures/item/yellow_perch.png",
    "where": [
-    "Time of day: 00:00-15:00, 21:00-00:00",
+    "Time of day: 06:00-21:00, 03:00-06:00",
     "Freshwater",
     "Dimension: Overworld",
     "Fluid: Water",
@@ -6722,7 +6722,7 @@ window.TIDE = {
    "entity": "tide:coelacanth",
    "icon": "assets/textures/item/coelacanth.png",
    "where": [
-    "Time of day: 13:00-23:00",
+    "Time of day: 19:00-05:00",
     "Weather: Rain, Thunderstorm",
     "Biomes: Deep Ocean",
     "Saltwater",
@@ -7104,7 +7104,7 @@ window.TIDE = {
    "entity": "tide:great_white_shark",
    "icon": "assets/textures/item/great_white_shark.png",
    "where": [
-    "Time of day: 22:00-00:00, 00:00-03:00, 11:00-17:00",
+    "Time of day: 04:00-06:00, 06:00-09:00, 17:00-23:00",
     "Saltwater",
     "Dimension: Overworld",
     "Fluid: Water",
@@ -9112,7 +9112,7 @@ window.TIDE = {
    "icon": "assets/textures/item/shooting_starfish.png",
    "where": [
     "Moon phase: Full Moon",
-    "Time of day: 13:00-23:00",
+    "Time of day: 19:00-05:00",
     "Biomes: Deep Ocean",
     "Saltwater",
     "Dimension: Overworld",
@@ -9675,7 +9675,7 @@ window.TIDE = {
    "entity": "tide:sun_emblem",
    "icon": "assets/textures/item/sun_emblem.png",
    "where": [
-    "Time of day: 23:00-00:00, 00:00-12:00",
+    "Time of day: 05:00-06:00, 06:00-18:00",
     "Moon phase: Full Moon",
     "Saltwater",
     "Dimension: Overworld",
