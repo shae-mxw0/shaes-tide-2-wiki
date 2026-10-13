@@ -89,6 +89,7 @@
   function fmtTick(ticks) {
     var t = ((Math.round(ticks) % 24000) + 24000) % 24000;
     var minutes = Math.round(t / 24000 * 1440) % 1440;
+    minutes = (minutes + 360) % 1440; // MC tick 0 is 06:00, not midnight
     return pad(Math.floor(minutes / 60)) + ":" + pad(minutes % 60);
   }
 
